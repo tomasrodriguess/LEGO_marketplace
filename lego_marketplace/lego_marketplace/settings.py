@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'lego_sets',
     'rest_framework',
     'corsheaders'
 ]
