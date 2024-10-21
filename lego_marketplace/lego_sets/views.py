@@ -28,7 +28,7 @@ class LegoSetCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        if not self.request.user.is_staff:
+        if not self.request.user.is_moderator:
             raise PermissionDenied("Only moderators can create Lego sets.")
         serializer.save(created_by=self.request.user)
 

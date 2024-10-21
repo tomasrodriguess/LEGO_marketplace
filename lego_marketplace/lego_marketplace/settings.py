@@ -147,3 +147,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGIN = True
 CORS_ALLOWS_CREDENTIALS = True
+
+AUTH_USER_MODEL = 'users.User'
