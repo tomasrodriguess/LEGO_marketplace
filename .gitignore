@@ -44,7 +44,7 @@ node_modules/
 npm-debug.log
 
 # Django migrations
-*/migrations/*
+**/migrations/*
 
 # Media and static files
 /media
