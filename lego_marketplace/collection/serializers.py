@@ -5,36 +5,36 @@ from lego_sets.models import LegoSet
 
 
 class CollectionSerializer(serializers.ModelSerializer):
-
+    items = serializers.SerializerMethodField()
     class Meta:
         model = Collection
-        fields = ['id', 'user', 'name', 'public','description']
+        fields = ['id', 'user', 'name', 'public','description','items']
         read_only_fields = ['user']
 
+    def get_items(self, obj):
+        items = CollectionItem.objects.filter(collection=obj)
+        return CollectionItemSerializer(items, many=True).data
+
 class CollectionItemSerializer(serializers.ModelSerializer):
-    lego_set = LegoSetSerializer()  # Nested serializer for Lego set details
+    lego_set = serializers.PrimaryKeyRelatedField(queryset=LegoSet.objects.all())  # Accepts the lego_set ID
+    collection = serializers.PrimaryKeyRelatedField(queryset=Collection.objects.all())
 
     class Meta:
         model = CollectionItem
         fields = ['id', 'collection', 'lego_set', 'condition', 'purchase_date', 'price']
         read_only_fields = ['collection']
 
-    def create(self, validated_data):
-        lego_set_id = validated_data.get('lego_set')
-        if not LegoSet.objects.filter(set_number=lego_set_id).exists():
+
+    def validate(self, data):
+        if not data['lego_set']:
+            raise serializers.ValidationError("Lego set must be specified.")
+        elif  not LegoSet.objects.filter(set_number=data['lego_set'].set_number).exists():
             raise serializers.ValidationError({"lego_set": "The specified Lego Set does not exist."})
-
-        # Validate existence of Collection
-        collection = validated_data.get('collection')
-        if not Collection.objects.filter(id=collection.id).exists():
+        if not data['collection']:
+            raise serializers.ValidationError("Collection must be specified.")
+        elif not Collection.objects.filter(id=data['collection'].id).exists():
             raise serializers.ValidationError({"collection": "The specified Collection does not exist."})
-
-        # Create the CollectionItem
-        item = CollectionItem.objects.create(**validated_data)
-        item.lego_set = lego_set_id
-        item.collection = collection
-        item.save()
-        return item
+        return data
 
     def update(self, instance, validated_data):
         lego_set_data = validated_data.pop('lego_set', None)

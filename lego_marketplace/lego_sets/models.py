@@ -4,7 +4,7 @@ from users.models import User
 
 class LegoSet(models.Model):
     name = models.CharField(max_length=255)
-    set_number = models.CharField(max_length=20, unique=True)
+    set_number = models.CharField(max_length=20, unique=True,primary_key=True)
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     release_date = models.DateField()
     release_price = models.IntegerField()

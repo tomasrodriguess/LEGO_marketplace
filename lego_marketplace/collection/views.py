@@ -31,12 +31,22 @@ class CollectionDetailView(generics.RetrieveAPIView):
     lookup_field = 'id'
     
     def get_object(self):
-        # Get the collection instance by pk
         collection = super().get_object()
-
-        # Check if the collection is public or belongs to the current user
         if collection.public or collection.user == self.request.user:
             return collection
         else:
-            # If neither, raise a permission denied error
             raise PermissionDenied("You do not have permission to view this collection.")
+        
+class CollectionItemCreateView(generics.CreateAPIView):
+    queryset = CollectionItem.objects.all()
+    serializer_class = CollectionItemSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        collection = serializer.validated_data['collection']
+        # Check if the user owns the collection
+        if collection.user != self.request.user:
+            raise PermissionDenied("You do not have permission to add items to this collection.")
+
+        # Create the collection item
+        serializer.save()
