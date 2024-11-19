@@ -26,7 +26,7 @@ Lego Marketplace is a backend system built using Django and Django REST Framewor
 
 5. **Role-Based Permissions**:
    - Normal users have restricted access to certain features (e.g., listing Lego sets).
-   - Staff users (via `is_noderator`) can create, update, and delete Lego sets, as well as manage transactions.
+   - Staff users (via `is_moderator`) can create, update, and delete Lego sets, as well as manage transactions.
 
 6. **Collection Management**: 
    - Users can manage their personal Lego collections (add, remove, view).
