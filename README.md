@@ -11,7 +11,7 @@ Lego Marketplace is a backend system built using Django and Django REST Framewor
    - Token-based authentication using JWT.
    - Permissions and privileges are assigned based on user roles (e.g., normal users vs. staff users).
 
-2. **Lego Sets Management**: (IN PROGRESS)
+2. **Lego Sets Management**: 
    - Users can browse and filter available Lego sets.
    - Staff users can create, update, and delete Lego sets.
    - Normal users can add Lego sets to their personal collection.
@@ -20,15 +20,15 @@ Lego Marketplace is a backend system built using Django and Django REST Framewor
    - Users can search for Lego sets by name or set number.
    - Lists of Lego sets can be filtered using query parameters (e.g., name, set number).
 
-4. **Transactions**: (TO DO)
+4. **Transactions**: (IN PROGRESS)
    - Users can perform transactions, such as trading Lego sets with one another.
    - Staff can oversee and manage these transactions.
 
 5. **Role-Based Permissions**:
    - Normal users have restricted access to certain features (e.g., listing Lego sets).
-   - Staff users (via `is_staff`) can create, update, and delete Lego sets, as well as manage transactions.
+   - Staff users (via `is_noderator`) can create, update, and delete Lego sets, as well as manage transactions.
 
-6. **Collection Management**: (TO DO)
+6. **Collection Management**: 
    - Users can manage their personal Lego collections (add, remove, view).
 
 ## **Requirements**
