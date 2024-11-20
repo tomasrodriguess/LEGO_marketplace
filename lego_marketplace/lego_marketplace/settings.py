@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'users',
     'lego_sets',
     'collection',
+    'marketplace',
     'rest_framework',
     'corsheaders'
 ]
